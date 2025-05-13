@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Code Had a Bug… Then I Found You</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: #1e1e2f;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    .center {
+      text-align: center;
+      padding: 50px 20px;
+    }
+    .title {
+      font-size: 2.5em;
+      font-weight: 800;
+      animation: floatText 2s ease-in-out infinite;
+    }
+    .misi{
+        color: #ff4081;
+    }
+    .code {
+      font-family: 'Courier New', monospace;
+      background: #2d2d3a;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 30px auto;
+      width: fit-content;
+    }
+    .button {
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #ff4081;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    @keyframes floatText {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .message {
+      font-size: 1.5em;
+      margin-top: 20px;
+      transition: opacity 0.5s ease;
+    }
+    .dropdown {
+      margin-top: 40px;
+    }
+    select {
+      font-size: 1em;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      background: #333;
+      color: #fff;
+    }
+    .gallery {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .gallery img {
+      width: 400px;
+      margin: 10px;
+      border-radius: 10px;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="center">
+    <div class="title">Happy Birthday to you <br> <span class="misi">Mysi</span></div>
+
+    <div class="code">
+      <pre>
+const budddy = {
+  bugs: ["loneliness", "cold heart"],
+  fixedBy: "Mysi 💖"
+};
+      </pre>
+    </div>
+
+    <button class="button" onclick="showBugFix()">🔧 Fix My Bug</button>
+    <div class="message" id="funnyMessage"></div>
+
+    <div class="dropdown">
+      <label for="memoryDate">📅 Choose a Memory:</label>
+      <select id="memoryDate">
+        <option value="">-- Select Category --</option>
+        <option value="you">You</option>
+        <option value="Duo">Duo</option>
+        <option value="Sonargaon">Sonargaon</option>
+        <option value="Thakurgaon">Thakurgaon</option>
+        <option value="Bhairab">Bhairab</option>
+        <option value="Afternoon">Afternoon</option>
+      </select>
+      <button class="button" style="margin-top: 10px;" onclick="showMemoryImages()">🖼️ Show Memories</button>
+    </div>
+
+    <div class="gallery" id="gallery"></div>
+  </div>
+
+  <script>
+    const messages = [
+      "You fixed my emotion!",
+      "You removed lonely() from my loop!",
+      "You made my life async/await... worth it!",
+      "You are the dependency of my cup of tea",
+      "You closed all my emotional bugs."
+    ];
+
+    function showBugFix() {
+      const msg = messages[Math.floor(Math.random() * messages.length)];
+      const messageDiv = document.getElementById('funnyMessage');
+      messageDiv.style.opacity = 0;
+      setTimeout(() => {
+        messageDiv.textContent = msg;
+        messageDiv.style.opacity = 1;
+      }, 300);
+    }
+
+    anime({
+      targets: '.title',
+      scale: [1, 1.1],
+      duration: 2000,
+      direction: 'alternate',
+      loop: true,
+      easing: 'easeInOutSine'
+    });
+
+    const memories = {
+        'you':[
+            './img/maysha1.jpg',
+            './img/maysha2.jpg',
+            './img/maysha3.jpg',
+            './img/maysha4.jpg',
+        ],
+        'Duo': [
+            './img/duo-1.jpg',
+            './img/duo-2.jpg'
+        ],
+        'Sonargaon':[
+            './img/sonar-1.jpeg',
+            './img/sonar-2.jpeg',
+            './img/sonar-3.jpeg',
+        ],
+        'Thakurgaon': [
+            './img/thakur-1.jpg',
+            './img/thakur-2.jpg',
+            './img/thakur-3.jpg'
+        ],
+        'Bhairab': [
+            './img/voirob-1.jpg',
+            './img/voirob-2.jpg',
+            './img/voirob-3.jpg',
+            './img/voirob-4.jpg'
+        ],
+        'Afternoon':[
+            './img/nouka-1.jpg',
+            './img/nouka-2.jpg',
+        ],
+    };
+
+    function showMemoryImages() {
+      const date = document.getElementById('memoryDate').value;
+      const gallery = document.getElementById('gallery');
+      gallery.innerHTML = '';
+
+      if (memories[date]) {
+        memories[date].forEach((src, index) => {
+          const img = document.createElement('img');
+          img.src = src;
+          gallery.appendChild(img);
+          anime({
+            targets: img,
+            opacity: [0, 1],
+            translateY: [30, 0],
+            delay: index * 300,
+            duration: 1000,
+            easing: 'easeOutElastic(1, .8)'
+          });
+        });
+      }
+    }
+  </script>
+</body>
+</html>
